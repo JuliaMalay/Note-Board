@@ -1,0 +1,11 @@
+.card {
+  min-height: 100px;
+  width: 250px;
+  background-color: aliceblue;
+  border: 1px solid lightgrey;
+}
+.card__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+}
