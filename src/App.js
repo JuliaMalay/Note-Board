@@ -1,11 +1,11 @@
+import 'normalize.css';
 import './App.css';
-import Card from './components/card/Card';
+import List from './components/list/List';
 
 function App() {
   return (
     <div className="App">
-      <Card title="ToDo" />
-      <Card title="Not ToDo" />
+      <List />
     </div>
   );
 }

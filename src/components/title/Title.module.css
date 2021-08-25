@@ -1,0 +1,8 @@
+.editableTitleContainer {
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.editableTitle {
+  flex-grow: 1;
+}

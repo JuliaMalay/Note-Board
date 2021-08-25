@@ -7,6 +7,11 @@
   width: 100vw;
   height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
+}
+.svg {
+  width: 30px;
+  height: 30px;
+}
+.svg svg:hover {
+  fill: salmon;
 }
