@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import SvgSelector from '../svgSelector/SvgSelector';
-import Input from '../UI/input/Input';
 import classes from './Title.module.css';
 const Title = () => {
   const [open, setOpen] = useState(false);
@@ -8,8 +7,9 @@ const Title = () => {
     <div>
       {open ? (
         <div>
-          <Input
-            value="Hello!"
+          <input
+            className={classes.input}
+            value="Todo"
             autoFocus
             onBlur={() => {
               setOpen(!open);
@@ -19,6 +19,7 @@ const Title = () => {
       ) : (
         <div className={classes.editableTitleContainer}>
           <h2
+            className={classes.editableTitle}
             onClick={() => {
               setOpen(!open);
             }}

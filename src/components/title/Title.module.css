@@ -1,8 +1,24 @@
 .editableTitleContainer {
   margin: 10px;
   display: flex;
-  justify-content: space-between;
 }
 .editableTitle {
   flex-grow: 1;
+}
+.input {
+  margin: 8px;
+  padding: 10px;
+  width: 100%;
+  height: 30px;
+  background-color: #ebecf0;
+  border: none;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 0.35em;
+}
+.input:focus {
+  background-color: #ddd;
+  outline: none !important;
 }
