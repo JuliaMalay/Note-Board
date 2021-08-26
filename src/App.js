@@ -6,6 +6,7 @@ import store from './utils/store';
 import DataContext from './context/index';
 import {v4 as uuid} from 'uuid';
 import InputContainer from './components/addCard/InputContainer';
+import {DragDropContext} from 'react-beautiful-dnd';
 
 function App() {
   const [data, setData] = useState(store);
@@ -50,14 +51,71 @@ function App() {
     };
     setData(newState);
   };
+  const onDragEnd = (result) => {
+    const {destination, source, draggableId} = result;
+    console.log(destination, source, draggableId);
+    const sourceList = data.lists.find(
+      (list) => list.id === source.droppableId
+    );
+    console.log(sourceList);
+
+    const destinationList = data.lists.find(
+      (list) => list.id === destination.droppableId
+    );
+    console.log(destinationList);
+
+    const draggingCard = sourceList.cards.filter(
+      (card) => card.id === draggableId
+    )[0];
+    console.log(draggingCard);
+
+    if (!destination) {
+      return;
+    }
+    if (source.droppableId === destination.droppableId) {
+      sourceList.cards.splice(source.index, 1);
+      destinationList.cards.splice(destination.index, 0, draggingCard);
+      const newState = {
+        ...data,
+        lists: data.lists.map((list) => {
+          if (list.id === sourceList.id) {
+            return destinationList;
+          } else {
+            return list;
+          }
+        }),
+      };
+
+      setData(newState);
+    } else {
+      sourceList.cards.splice(source.index, 1);
+      console.log(
+        destinationList.cards.splice(destination.index, 0, draggingCard)
+      );
+
+      const newState = {
+        ...data,
+        lists: data.lists.map((list) => {
+          if (list.id === sourceList.id) {
+            return sourceList;
+          } else {
+            return list;
+          }
+        }),
+      };
+      setData(newState);
+    }
+  };
   return (
     <DataContext.Provider value={{addMoreCard, addMoreList, updateListTitle}}>
-      <div className="App">
-        {data.lists.map((list) => (
-          <List list={list} key={list.id} />
-        ))}
-        <InputContainer type="list" />
-      </div>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <div className="App">
+          {data.lists.map((list) => (
+            <List list={list} key={list.id} />
+          ))}
+          <InputContainer type="list" />
+        </div>
+      </DragDropContext>
     </DataContext.Provider>
   );
 }
