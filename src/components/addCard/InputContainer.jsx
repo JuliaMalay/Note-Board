@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 import InputCard from './InputCard';
 import classes from './InputContainer.module.css';
-const InputContainer = ({listId}) => {
+const InputContainer = ({listId, type}) => {
   const [open, setOpen] = useState(false);
   return (
-    <div>
+    <div className={classes.root}>
       {open ? (
-        <InputCard setOpen={setOpen} listId={listId} />
+        <InputCard setOpen={setOpen} listId={listId} type={type} />
       ) : (
         <div
           className={classes.inputContainer}
@@ -14,7 +14,7 @@ const InputContainer = ({listId}) => {
             setOpen(true);
           }}
         >
-          <p>+ Add card</p>
+          <p>{type === 'list' ? '+ Add new list' : '+ Add card'}</p>
         </div>
       )}
     </div>

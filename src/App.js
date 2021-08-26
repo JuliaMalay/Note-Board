@@ -5,6 +5,7 @@ import List from './components/list/List';
 import store from './utils/store';
 import DataContext from './context/index';
 import {v4 as uuid} from 'uuid';
+import InputContainer from './components/addCard/InputContainer';
 
 function App() {
   const [data, setData] = useState(store);
@@ -23,13 +24,27 @@ function App() {
     };
     setData(newState);
   };
+  const addMoreList = (title) => {
+    const newListId = uuid();
+    const newList = {
+      id: newListId,
+      title,
+      cards: [],
+    };
+    const newState = {
+      ...data,
+      lists: [...data.lists, newList],
+    };
+    setData(newState);
+  };
 
   return (
-    <DataContext.Provider value={{addMoreCard}}>
+    <DataContext.Provider value={{addMoreCard, addMoreList}}>
       <div className="App">
         {data.lists.map((list) => (
           <List list={list} key={list.id} />
         ))}
+        <InputContainer type="list" />
       </div>
     </DataContext.Provider>
   );

@@ -1,13 +1,15 @@
 import React, {useContext, useState} from 'react';
 import DataContext from '../../context';
 import classes from './InputCard.module.css';
-const InputCard = ({setOpen, listId}) => {
-  const [cardTitle, setCardTitle] = useState('');
-  const {addMoreCard} = useContext(DataContext);
+const InputCard = ({setOpen, listId, type}) => {
+  const [title, setTitle] = useState('');
+  const {addMoreCard, addMoreList} = useContext(DataContext);
 
   const handleConfirm = () => {
-    if (cardTitle) {
-      addMoreCard(cardTitle, listId);
+    if (title && type === 'list') {
+      addMoreList(title);
+    } else if (title) {
+      addMoreCard(title.trim(), listId);
     }
     setOpen(false);
   };
@@ -20,18 +22,20 @@ const InputCard = ({setOpen, listId}) => {
     >
       <div>
         <textarea
-          placeholder="Enter a title of this card"
+          placeholder={
+            type === 'list' ? 'Enter list title' : 'Enter a title of this card'
+          }
           className={classes.textarea}
           autoFocus
-          value={cardTitle}
+          value={title}
           onChange={(event) => {
-            setCardTitle(event.target.value);
+            setTitle(event.target.value);
           }}
         />
       </div>
-      <div>
+      <div style={{display: 'flex'}}>
         <button className={classes.addBtn} onClick={handleConfirm}>
-          Add card
+          {type === 'list' ? 'Add list' : 'Add card'}
         </button>
         <button
           className={classes.clearBtn}
