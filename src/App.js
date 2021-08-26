@@ -37,9 +37,21 @@ function App() {
     };
     setData(newState);
   };
-
+  const updateListTitle = (title, listId) => {
+    const newState = {
+      ...data,
+      lists: data.lists.map((list) => {
+        if (list.id === listId) {
+          return {...list, title: title};
+        } else {
+          return list;
+        }
+      }),
+    };
+    setData(newState);
+  };
   return (
-    <DataContext.Provider value={{addMoreCard, addMoreList}}>
+    <DataContext.Provider value={{addMoreCard, addMoreList, updateListTitle}}>
       <div className="App">
         {data.lists.map((list) => (
           <List list={list} key={list.id} />

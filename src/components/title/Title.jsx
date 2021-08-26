@@ -1,19 +1,26 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
+import DataContext from '../../context';
 import SvgSelector from '../svgSelector/SvgSelector';
 import classes from './Title.module.css';
-const Title = ({title}) => {
+const Title = ({title, listId}) => {
   const [open, setOpen] = useState(false);
-
+  const [newTitle, setNewTitle] = useState(title);
+  const {updateListTitle} = useContext(DataContext);
+  const handleOnBlur = () => {
+    updateListTitle(newTitle, listId);
+    setOpen(!open);
+  };
   return (
     <div>
       {open ? (
         <div>
           <input
             className={classes.input}
-            value={title}
+            value={newTitle}
             autoFocus
-            onBlur={() => {
-              setOpen(!open);
+            onBlur={handleOnBlur}
+            onChange={(event) => {
+              setNewTitle(event.target.value);
             }}
           />
         </div>
@@ -25,7 +32,7 @@ const Title = ({title}) => {
               setOpen(!open);
             }}
           >
-            {title}
+            {newTitle}
           </h2>
           <div className="svg">
             <SvgSelector id="more" />

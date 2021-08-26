@@ -6,7 +6,7 @@ import classes from './List.module.css';
 const List = ({list}) => {
   return (
     <div className={classes.list}>
-      <Title title={list.title} />
+      <Title title={list.title} listId={list.id} />
       {list.cards.map((card) => (
         <Card card={card} key={card.id} />
       ))}
